@@ -12,11 +12,17 @@ body {
   height: 4.8em;
   transition: all 0.4s ease-in-out;
 }
+
 /* .candidatePicture:hover {
-  height: 200px;
-  margin-left: 20px;
-  transform: scale(1.1);
+  height: 250px;
+  margin-right: 100%;
+  transform: translateZ();
 } */
+
+table {
+  text-align: center;
+  margin: auto;
+}
 
 /*
  * Sidebar
