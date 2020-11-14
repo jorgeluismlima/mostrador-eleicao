@@ -23,6 +23,13 @@ const ciclo = 'oficial/ele2020';
 const ambiente = 'oficial';
 const codigoEleicao = '426';
 
+// ambiente de simulação
+
+// const host = 'https://resultados.tse.jus.br/publico';
+// const ciclo = 'ele2020';
+// const ambiente = 'simulado';
+// const codigoEleicao = '8334';
+
 /**
  * Sleeps for an specified amount of time (not executing anything).
  * @param {Integer} ms - Number of millisseconds
@@ -41,7 +48,7 @@ function sleep(ms) {
  */
 async function getVariableFile(city, uf, role) {
   // IR AO TSE
-  console.log(`Pegando arquivo da eleição de ${city.name} para ${role}`);
+  console.log(`CARREGANDO DADOS DO TSE =>  ${city.name} para ${role}`);
   const cityCode = await getCityCode(city, uf);
   const roleCode = String(roleStringToRoleCode(role)).padStart(4, '0');
   const filepath =
@@ -147,14 +154,15 @@ async function getFiles() {
           }. Resta aguardar ainda se o TSE vai considerar eleito(a) ou não.`);
     }
   }
-  console.log(fileCache);
+  // console.log(fileCache);
   localStorage.setItem('elected', JSON.stringify(electedCache));
   localStorage.setItem('matematicamente', JSON.stringify(matematicamenteCache));
-  console.log(`ELEITOS: ${JSON.stringify(localStorage.elected)}`);
-  console.log(`MATEMATICAMENTE: ${
-    JSON.stringify(localStorage.matematicamente)
-  }`);
+  // console.log(`ELEITOS: ${JSON.stringify(localStorage.elected)}`);
+  // console.log(`MATEMATICAMENTE: ${
+  //   JSON.stringify(localStorage.matematicamente)
+  // }`);
   changedForm();
+  ProgressCountdown(30, 'pageBeginCountdown');
 }
 
 /**

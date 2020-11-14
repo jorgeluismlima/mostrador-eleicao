@@ -1,4 +1,4 @@
-/* eslint-disable no-unused-vars */
+// * eslint-disable no-unused-vars */
 /**
  * Generates an array of color strings.
  * @param {Number} qnt - Determines how many colors you want.
@@ -182,10 +182,13 @@ function plotUrnasApuradas(data) {
   if (data.candidates.length <= 0) {
     return;
   }
-  const myCanvas = document.createElement('canvas');
-  myCanvas.id = 'urnasApuradas';
+  const myCanvas02 = document.createElement('canvas');
+  myCanvas02.id = 'urnasApuradas';
+  myCanvas02.style.width = '250px';
+  myCanvas02.style.height = '150px';
 
-  document.querySelector('#graphs').appendChild(myCanvas);
+
+  document.querySelector('#graphs').appendChild(myCanvas02);
 
   const urnasApuradas = parseFloat(data.as.replace(',', '.'));
 
@@ -244,18 +247,22 @@ function generateCandTable(data) {
   // ==> Appending headers
   const candidateName = document.createElement('th');
   candidateName.textContent = 'Candidato';
+  candidateName.style.width  = '40%';
   headerRow.appendChild(candidateName);
 
   const partyAbbr = document.createElement('th');
   partyAbbr.textContent = 'Partido';
+  partyAbbr.style.width  = '25%';
   headerRow.appendChild(partyAbbr);
 
   const votes = document.createElement('th');
-  votes.textContent = '# de votos';
+  votes.textContent = 'QTD de votos';
+  votes.style.width  = '25%';
   headerRow.appendChild(votes);
 
   const elected = document.createElement('th');
-  elected.textContent = 'Eleito?';
+  elected.textContent = 'Eleito';
+  elected.style.width  = '10%';
   headerRow.appendChild(elected);
 
   if (data.candidates.length <= 0) {
@@ -332,9 +339,11 @@ function generateCandTable(data) {
     }
 
     row.appendChild(isCurrCandidateElected);
-    if (candidate.seq <= 55) {
+    if (candidate.seq <= 25) {
       const candidatePicture = document.createElement('img');
       candidatePicture.id = `imagem${candidate.sqcand}`;
+      // candidatePicture.style.width  = '50%';
+      // candidatePicture.style.height = 'auto';        
       candidatePicture.className = 'candidatePicture';
       candidatePicture.src = provideImageLink(candidate.sqcand, data.uf);
       row.appendChild(candidatePicture);
@@ -343,7 +352,7 @@ function generateCandTable(data) {
     table.appendChild(row);
   });
 
-  document.querySelector('#graphs').appendChild(table);
+  document.querySelector('#table').appendChild(table);
 }
 
 /**
@@ -356,7 +365,7 @@ function generateNullVotesTable(data) {
   }
 
   const table = document.createElement('table');
-  table.className = 'table-responsive';
+  table.className = 'table table-striped table-sm';
   table.id = 'nullVotesTable';
 
   const whiteVotes = document.createElement('tr');
@@ -375,8 +384,17 @@ function generateNullVotesTable(data) {
   nullVotesNumber.textContent = numberWithPeriods(data.nullVotes);
   nullVotes.appendChild(nullVotesNumber);
 
+  const dataHora = document.createElement('tr');
+  const dataHoraText = document.createElement('th');
+  dataHoraText.textContent = 'DATA / HORA';
+  dataHora.appendChild(dataHoraText);
+  const dataHoraNumber = document.createElement('td');
+  dataHoraNumber.textContent = (data.dh);
+  dataHora.appendChild(dataHoraNumber);
+
   table.appendChild(whiteVotes);
   table.appendChild(nullVotes);
+  table.appendChild(dataHora);
 
   document.querySelector('#graphs').appendChild(table);
 }
